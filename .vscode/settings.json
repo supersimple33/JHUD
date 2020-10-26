@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python",
+    "python.linting.pylintArgs" : [
+        "--extension-pkg-whitelist=lxml",
+        "--const-naming-style=camelCase",
+        "--variable-naming-style=camelCase",
+        "--function-naming-style=camelCase",
+        "--method-naming-style=camelCase"
+    ]
+}
