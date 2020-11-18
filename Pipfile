@@ -9,6 +9,7 @@ verify_ssl = true
 board = "*"
 adafruit-blinka = "*"
 adafruit-circuitpython-lsm9ds1 = "*"
+wxPython = "*"
 
 [requires]
 python_version = "3.8"
