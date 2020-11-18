@@ -1,4 +1,4 @@
- #!/usr/bin/python3
+ #!/usr/bin/env python
 ###########################################################################
 # odb_io.py
 #
@@ -74,17 +74,17 @@ class OBDPort:
      def __init__(self,portnum,_notify_window,SERTIMEOUT,RECONNATTEMPTS):
          """Initializes port by resetting device and gettings supported PIDs. """
          # These should really be set by the user.
-         baud     = 38400
+         baud = 38400
          databits = 8
-         par      = serial.PARITY_NONE  # parity
-         sb       = 1                   # stop bits
-         to       = SERTIMEOUT
+         par = serial.PARITY_NONE # parity
+         sb = 1 # stop bits
+         to = SERTIMEOUT
          self.ELMver = "Unknown"
          self.State = 1 #state SERIAL is 1 connected, 0 disconnected (connection failed)
          self.port = None
          
          self._notify_window=_notify_window
-         #debug_display(self._notify_window, 1, "Opening interface (serial port)")
+         debug_display(self._notify_window, 1, "Opening interface (serial port)")
 
          try:
              self.port = serial.Serial(portnum,baud, \
@@ -95,8 +95,8 @@ class OBDPort:
              self.State = 0
              return None
              
-         #debug_display(self._notify_window, 1, "Interface successfully " + self.port.portstr + " opened")
-         #debug_display(self._notify_window, 1, "Connecting to ECU...")
+         debug_display(self._notify_window, 1, "Interface successfully " + self.port.portstr + " opened")
+         debug_display(self._notify_window, 1, "Connecting to ECU...")
          
          try:
             self.send_command("atz")   # initialize
@@ -110,9 +110,9 @@ class OBDPort:
             self.State = 0
             return None
          
-         #debug_display(self._notify_window, 2, "atz response:" + self.ELMver)
+         debug_display(self._notify_window, 2, "atz response:" + self.ELMver)
          self.send_command("ate0")  # echo off
-         #debug_display(self._notify_window, 2, "ate0 response:" + self.get_result())
+         debug_display(self._notify_window, 2, "ate0 response:" + self.get_result())
          self.send_command("0100")
          ready = self.get_result()
          
@@ -120,14 +120,14 @@ class OBDPort:
             self.State = 0
             return None
             
-         #debug_display(self._notify_window, 2, "0100 response:" + ready)
+         debug_display(self._notify_window, 2, "0100 response:" + ready)
          return None
               
      def close(self):
          """ Resets device and closes all associated filehandles"""
          
          if (self.port!= None) and self.State==1:
-            self.send_command("atz")
+            self.send_command("atz".encode('utf-8')) # Encoded to bytes
             self.port.close()
          
          self.port = None
@@ -212,10 +212,7 @@ class OBDPort:
          if data:
              data = self.interpret_result(data)
              if data != "NODATA":
-                 try:
-                   data = sensor.value(data)
-                 except:
-                   print("sensor data missing")
+                 data = sensor.value(data)
          else:
              return "NORESPONSE"
              
@@ -226,10 +223,7 @@ class OBDPort:
          """Returns 3-tuple of given sensors. 3-tuple consists of
          (Sensor Name (string), Sensor Value (string), Sensor Unit (string) ) """
          sensor = obd_sensors.SENSORS[sensor_index]
-         try:
-           r = self.get_sensor_value(sensor)
-         except:
-           print("couldnt get sensor data")
+         r = self.get_sensor_value(sensor)
          return (sensor.name,r, sensor.unit)
 
      def sensor_names(self):
@@ -247,18 +241,14 @@ class OBDPort:
          
          statusTrans.append(str(statusRes[0])) #DTCs
          
-         try:
-           if statusRes[1]==0: #MIL
-              statusTrans.append("Off")
-           else:
-              statusTrans.append("On")
-         except:
-           print("huh")
+         if statusRes[1]==0: #MIL
+            statusTrans.append("Off")
+         else:
+            statusTrans.append("On")
+            
          for i in range(2,len(statusRes)): #Tests
-              try:
-                statusTrans.append(statusText[statusRes[i]]) 
-              except:
-                print("err")
+              statusTrans.append(statusText[statusRes[i]]) 
+         
          return statusTrans
           
      #
@@ -333,4 +323,3 @@ class OBDPort:
                     line = "%.6f,\t%s\n" % (now - start_time, data[1])
                     file.write(line)
                     file.flush()
-          

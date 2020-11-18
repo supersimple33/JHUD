@@ -30,7 +30,8 @@ ID_HELP_ORDER = 510
 
 #call("sudo rfcomm connect 0 00:1D:A5:00:0F:A1",shell=True)
 time.sleep(3)
-port = obd_io.OBDPort( "/dev/rfcomm0"  ,2,5,0)
+port = obd_io.OBDPort("/dev/rfcomm0",None,5,0)
+print("Consider Using A Window")
 
 def initCommunication():
   #call("sudo rfcomm connect 0 00:1D:A5:00:0F:A1 &>/dev/null",shell=True)
