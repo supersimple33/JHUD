@@ -127,7 +127,7 @@ class OBDPort:
          """ Resets device and closes all associated filehandles"""
          
          if (self.port!= None) and self.State==1:
-            self.send_command("atz".encode('utf-8')) # Encoded to bytes
+            self.send_command("atz")
             self.port.close()
          
          self.port = None
@@ -139,8 +139,8 @@ class OBDPort:
              self.port.flushOutput()
              self.port.flushInput()
              for c in cmd:
-                 self.port.write(c)
-             self.port.write("\r\n")
+                 self.port.write(c.encode('utf-8')) # Encoded to Bytes
+             self.port.write("\r\n".encode('utf-8')) # Encoded to Bytes
              #debug_display(self._notify_window, 3, "Send command:" + cmd)
 
      def interpret_result(self,code):
@@ -155,12 +155,12 @@ class OBDPort:
              print("boguscode?"+code)
          
          # get the first thing returned, echo should be off
-         code = string.split(code, "\r")
+         code = code.split("\r")
          code = code[0]
          
          #remove whitespace
-         code = string.split(code)
-         code = string.join(code, "")
+         code = code.split()
+         code = "".join(code)
          
          #cables can behave differently 
          if code[:6] == "NODATA": # there is no such sensor
@@ -177,7 +177,7 @@ class OBDPort:
          if self.port is not None:
              buffer = ""
              while 1:
-                 c = self.port.read(1)
+                 c = self.port.read(1).decode("utf-8") # decide to letters
                  if len(c) == 0:
                     if(repeat_count == 5):
                         break

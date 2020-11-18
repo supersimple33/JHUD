@@ -28,8 +28,8 @@ ID_HELP_VISIT = 509
 ID_HELP_ORDER = 510
 
 
-#call("sudo rfcomm connect 0 00:1D:A5:00:0F:A1",shell=True)
-time.sleep(3)
+call("sudo rfcomm connect /dev/rfcomm0 00:1D:A5:02:12:18 1",shell=True)
+time.sleep(4) # Sleeping More Than Necessary, better to wait for shell response
 port = obd_io.OBDPort("/dev/rfcomm0",None,5,0)
 print("Consider Using A Window")
 
@@ -63,8 +63,10 @@ def getRPM():
   try:
    # return ((port.sensor(12)[1]-1346500000)-689000)/10.5-700
     rpms = port.sensor(12)[1]
+    print(rpms)
     rpms = rpms & 0x0000FFFF
-    return int(rpms) 
+    print('b')
+    return int(rpms)
   except:
     return "err"
 
