@@ -10,7 +10,7 @@ import os
 import time
 from rpiIMU2 import *
 from temp_read2 import *
-#from pynog import *
+from pynog import *
 
 # MARK: comment in when adding touch screen here and line 27
 # os.environ['SDL_VIDEODRIVER'] = 'fbcon'   #set up os environment to display to TFT
@@ -346,18 +346,6 @@ while 1:
     speedTrueRect.centerx = (6 * width / 7) + ((width / 15))
     speedTrueRect.centery = height / 2
     screen.blit(speedTrueText, speedTrueRect)
-
-    # if display_compass:
-        # degree_text = font2.render(str(int(heading))+'\xb0', 1,(84,179,247))
-        # screen.blit(degree_text, d_text_pos)
-        # screen.blit(compass_background, cb_rect)
-        # new_compass_needle = rot_center(compass_needle, heading)  #added 90 as offset
-        # screen.blit(new_compass_needle, cn_rect)
-
-    # pygame.draw.line(screen, green, (20, 70), (300, 70))
-    # pygame.draw.line(screen, green, (20, 140), (300, 140))
-    # pygame.draw.line(screen, green, (width/3, 20), (width/3, 200))
-    # pygame.draw.line(screen, green, (2*width/3, 20), (2*width/3, 200))
 
     if display_F:
         temperature = int(temperature * 9.0/5.0 + 32)

@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python",
+    "python.pythonPath": "/usr/bin/python3",
     "python.linting.pylintArgs" : [
         "--extension-pkg-whitelist=lxml",
         "--const-naming-style=camelCase",
