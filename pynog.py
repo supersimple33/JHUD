@@ -5,7 +5,7 @@ import sys
 import serial
 import platform
 import time
-import ConfigParser
+# import ConfigParser
 from subprocess import call
 from obd2_codes import pcodes
 from obd2_codes import ptest
