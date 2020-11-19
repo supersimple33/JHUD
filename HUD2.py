@@ -159,17 +159,17 @@ acceleration = 0
 while 1:
     time_count += 1
     temperature = getTMP()
-    speed = getSpeed()
+    # speed = getSpeed()
     #speed_kph = int(speed * 1.609344)
-    rpm = getRPM()
-    #coolant = getCoolantTemp()
+    # rpm = getRPM()
+    coolant = getCoolantTemp()
     #intake = getIntakeTemp()
     #load = getLoad()
     #throttle = getThrottle()
-    # speed = 55 # temp
+    speed = 55 # temp
     speed_kph = 69
-    # rpm = 879 # temp
-    coolant = 170
+    rpm = 879 # temp
+    # coolant = 170
     intake = 110
     load = 44
     throttle = 78
@@ -209,6 +209,7 @@ while 1:
     print("acceleration is " + str(acceleration))
     print("speed is " + str(speed))
     print("RPM is " + str(rpm))
+    print("coolant is " + str(coolant))
 
     screen.fill(black)
     screen.blit(quit_text, q_text_pos)

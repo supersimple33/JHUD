@@ -49,7 +49,7 @@ def decrypt_dtc_code(code):
 
         tc = obd_sensors.hex_to_int(current[0]) #typecode
         tc = tc >> 2
-        if   tc == 0:
+        if tc == 0:
             type = "P"
         elif tc == 1:
             type = "C"
@@ -138,12 +138,16 @@ class OBDPort:
         if self.port:
             self.port.flushOutput()
             self.port.flushInput()
-            # if "a" in cmd:
+            for c in cmd:
+                self.port.write(c.encode('utf-8')) # Encoded to Bytes
+            # if "at" in cmd:
             #     for c in cmd:
             #         self.port.write(c.encode('utf-8')) # Encoded to Bytes
+            # elif len(cmd) > 4:
+            #     self.port.write(bytearray.fromhex(cmd[:-1]))
             # else:
-            #     self.port.write(
-            self.port.write("\r\n".encode('utf-8')) # Encoded to Bytes
+            #     self.port.write(bytearray.fromhex(cmd))
+            self.port.write("\r".encode('utf-8')) # Encoded to Bytes #\n
             #debug_display(self._notify_window, 3, "Send command:" + cmd)
 
     def interpret_result(self,code):
@@ -180,7 +184,9 @@ class OBDPort:
         if self.port is not None:
             buffer = ""
             while 1:
-                c = self.port.read(1).decode("utf-8") # decide to letters
+                c = self.port.read(1)
+                # c = c.decode("utf-8") # decide to letters 
+                print(c)
                 if len(c) == 0:
                     if(repeat_count == 5):
                         break
@@ -188,14 +194,14 @@ class OBDPort:
                     repeat_count = repeat_count + 1
                     continue
                     
-                if c == '\r':
+                if c == '\r'.encode("utf-8"):
                     continue
                     
-                if c == ">":
+                if c == ">".encode("utf-8"):
                     break
                      
                 if buffer != "" or c != ">": #if something is in buffer, add everything
-                    buffer = buffer + c
+                    buffer = buffer + c.decode("utf-8")
                     
             #debug_display(self._notify_window, 3, "Get result:" + buffer)
             if(buffer == ""):
@@ -211,7 +217,8 @@ class OBDPort:
         cmd = sensor.cmd
         self.send_command(cmd)
         data = self.get_result()
-         
+        
+        print(data)
         if data:
             data = self.interpret_result(data)
             if data != "NODATA":

@@ -28,8 +28,8 @@ ID_HELP_VISIT = 509
 ID_HELP_ORDER = 510
 
 
-call("sudo rfcomm connect /dev/rfcomm0 00:1D:A5:02:12:18 1",shell=True)
-time.sleep(4) # Sleeping More Than Necessary, better to wait for shell response
+# call("sudo rfcomm connect /dev/rfcomm0 00:1D:A5:02:12:18 1",shell=True)
+# time.sleep(4) # Sleeping More Than Necessary, better to wait for shell response
 port = obd_io.OBDPort("/dev/rfcomm0",None,5,0)
 print("Consider Using A Window")
 
@@ -60,10 +60,11 @@ initCommunication()
 
 
 def getRPM():
+    rpms = port.sensor(12)[1]
     try:
      # return ((port.sensor(12)[1]-1346500000)-689000)/10.5-700
         rpms = port.sensor(12)[1]
-        print(rpms)
+        print('a')
         rpms = rpms & 0x0000FFFF
         print('b')
         return int(rpms)
@@ -71,8 +72,9 @@ def getRPM():
         return "err"
 
 def getSpeed():
+    speeds = port.sensor(13)[1]
     try:
-        speeds =    port.sensor(13)[1]
+        speeds = port.sensor(13)[1]
         speeds = int(speeds) 
         speeds = speeds & 0x000000FF
         speeds /= 1.609
@@ -81,6 +83,8 @@ def getSpeed():
         return "Drugs are bad mmmkay?"
 
 def getCoolantTemp():
+    cool = port.sensor(5)[1]
+    print(cool, 0)
     try:
         return port.sensor(5)[1] & 0x000000FF
     except:
