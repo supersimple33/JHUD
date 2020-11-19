@@ -166,13 +166,6 @@ class OBDPort:
             self.port.flushInput()
             for c in cmd:
                 self.port.write(c.encode('utf-8')) # Encoded to Bytes
-            # if "at" in cmd:
-            #     for c in cmd:
-            #         self.port.write(c.encode('utf-8')) # Encoded to Bytes
-            # elif len(cmd) > 4:
-            #     self.port.write(bytearray.fromhex(cmd[:-1]))
-            # else:
-            #     self.port.write(bytearray.fromhex(cmd))
             self.port.write("\r".encode('utf-8')) # Encoded to Bytes #\n
             #debug_display(self._notify_window, 3, "Send command:" + cmd)
 
@@ -183,10 +176,21 @@ class OBDPort:
         # '41 11 0 0\r\r'
          
         # 9 seems to be the length of the shortest valid response
+        print(code, "begin")
         if len(code) < 7:
             #raise Exception("BogusCode")
             print("boguscode?"+code)
-         
+        
+        # codes = code.split("7E") #NOOT SAFE
+        nc = code[3:]
+        # nc = nc[:-1]
+        print(nc)
+        sigHex = int(nc[:2])*2 - 4 # do not need pid or mode
+        nc = nc[2:]
+        print(nc, 'u', sigHex)
+        nc = nc[4:]
+        print(nc)
+
         # get the first thing returned, echo should be off
         code = code.split("\r")
         code = code[0]
@@ -201,9 +205,10 @@ class OBDPort:
              
         # first 4 characters are code from ELM
         code = code[4:]
+        print(code, "end")
         return code
     
-    def get_result(self):
+    def get_result(self): #b'AT SH ' + b'7E8' + b' '
         """Internal use only: not a public interface"""
         #time.sleep(0.01)
         repeat_count = 0
@@ -211,8 +216,6 @@ class OBDPort:
             buffer = ""
             while 1:
                 c = self.port.read(1)
-                # c = c.decode("utf-8") # decide to letters 
-                print(c)
                 if len(c) == 0:
                     if(repeat_count == 5):
                         break
@@ -225,10 +228,8 @@ class OBDPort:
                     
                 if c == ">".encode("utf-8"):
                     break
-                     
                 if buffer != "" or c != ">": #if something is in buffer, add everything
                     buffer = buffer + c.decode("utf-8")
-                    
             #debug_display(self._notify_window, 3, "Get result:" + buffer)
             if(buffer == ""):
                 return None
