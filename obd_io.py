@@ -115,13 +115,13 @@ class OBDPort:
         debug_display(self._notify_window, 2, "ate0 response:" + self.get_result())
 
         self.send_command("atl0")  # Use \r to mark new line
-        debug_display(self._notify_window, 2, "sttl0 response:" + self.get_result())
+        debug_display(self._notify_window, 2, "atl0 response:" + self.get_result())
 
         self.send_command("ats0")  # Print Spaces (Get rid of spaces for speed)
         debug_display(self._notify_window, 2, "ats0 response:" + self.get_result())
 
-        # self.send_command("atm0")  # Turn memory off
-        # debug_display(self._notify_window, 2, "ath1 response:" + self.get_result())
+        # self.send_command("atm0")  # Sniffing or Memory Unsure (Not Touching for Now)
+        # debug_display(self._notify_window, 2, "atm0 response:" + self.get_result())
 
         # self.send_command("atst64")  # Timeout set timeout to 4*64 ms
         # debug_display(self._notify_window, 2, "ath1 response:" + self.get_result())
