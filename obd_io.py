@@ -111,8 +111,33 @@ class OBDPort:
             return None
          
         debug_display(self._notify_window, 2, "atz response:" + self.ELMver)
-        self.send_command("ate0")  # echo off
+        self.send_command("ate0")  # Echo off
         debug_display(self._notify_window, 2, "ate0 response:" + self.get_result())
+
+        self.send_command("atl0")  # Use \r to mark new line
+        debug_display(self._notify_window, 2, "sttl0 response:" + self.get_result())
+
+        self.send_command("ats0")  # Print Spaces (Get rid of spaces for speed)
+        debug_display(self._notify_window, 2, "ats0 response:" + self.get_result())
+
+        # self.send_command("atm0")  # Turn memory off
+        # debug_display(self._notify_window, 2, "ath1 response:" + self.get_result())
+
+        # self.send_command("atst64")  # Timeout set timeout to 4*64 ms
+        # debug_display(self._notify_window, 2, "ath1 response:" + self.get_result())
+
+        # self.send_command("attp0")  # Automatic Protocol # May Want To Set
+        # debug_display(self._notify_window, 2, "ath1 response:" + self.get_result())
+    
+        self.send_command("atst64")  # Timeout set timeout to 4*64 ms
+        debug_display(self._notify_window, 2, "atst64 response:" + self.get_result())
+
+        self.send_command("atdp")  # Headers on
+        debug_display(self._notify_window, 2, "atdp response:" + self.get_result())
+
+        self.send_command("ath1")  # Headers on
+        debug_display(self._notify_window, 2, "ath1 response:" + self.get_result())
+
         self.send_command("0100")
         ready = self.get_result()
          
@@ -121,6 +146,7 @@ class OBDPort:
             return None
             
         debug_display(self._notify_window, 2, "0100 response:" + ready)
+
         return None
               
     def close(self):
