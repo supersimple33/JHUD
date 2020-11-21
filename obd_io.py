@@ -30,8 +30,6 @@ from datetime import datetime
 
 import obd_sensors
 
-from obd_sensors import hex_to_int
-
 GET_DTC_COMMAND   = "03"
 CLEAR_DTC_COMMAND = "04"
 GET_FREEZE_DTC_COMMAND = "07"
@@ -47,7 +45,7 @@ def decrypt_dtc_code(code):
         if len(current)<4:
             raise "Tried to decode bad DTC: %s" % code
 
-        tc = obd_sensors.hex_to_int(current[0]) #typecode
+        tc = int(current[0], 16) #typecode
         tc = tc >> 2
         if tc == 0:
             type = "P"
@@ -60,10 +58,10 @@ def decrypt_dtc_code(code):
         else:
             raise tc
 
-        dig1 = str(obd_sensors.hex_to_int(current[0]) & 3)
-        dig2 = str(obd_sensors.hex_to_int(current[1]))
-        dig3 = str(obd_sensors.hex_to_int(current[2]))
-        dig4 = str(obd_sensors.hex_to_int(current[3]))
+        dig1 = str(int(current[0]) & 3, 16)
+        dig2 = str(int(current[1], 16))
+        dig3 = str(int(current[2], 16))
+        dig4 = str(int(current[3], 16))
         dtc.append(type+dig1+dig2+dig3+dig4)
         current = current[4:]
     return dtc
@@ -295,8 +293,7 @@ class OBDPort:
         dtcNumber = r[0]
         mil = r[1]
         DTCCodes = []
-          
-          
+        
         print("Number of stored DTC:" + str(dtcNumber) + " MIL: " + str(mil))
         # get all DTC, 3 per mesg response
         for i in range(0, ((dtcNumber+2)/3)):
@@ -304,8 +301,8 @@ class OBDPort:
             res = self.get_result()
             print("DTC result:" + res)
             for i in range(0, 3):
-                val1 = hex_to_int(res[3+i*6:5+i*6])
-                val2 = hex_to_int(res[6+i*6:8+i*6]) #get DTC codes from response (3 DTC each 2 bytes)
+                val1 = int(res[3+i*6:5+i*6], 16)
+                val2 = int(res[6+i*6:8+i*6], 16) #get DTC codes from response (3 DTC each 2 bytes)
                 val  = (val1<<8)+val2 #DTC val as int
                 
                 if val==0: #skip fill of last packet
@@ -324,8 +321,8 @@ class OBDPort:
           
         print("DTC freeze result:" + res)
         for i in range(0, 3):
-            val1 = hex_to_int(res[3+i*6:5+i*6])
-            val2 = hex_to_int(res[6+i*6:8+i*6]) #get DTC codes from response (3 DTC each 2 bytes)
+            val1 = int(res[3+i*6:5+i*6], 16)
+            val2 = int(res[6+i*6:8+i*6], 16) #get DTC codes from response (3 DTC each 2 bytes)
             val  = (val1<<8)+val2 #DTC val as int
                 
             if val==0: #skip fill of last packet

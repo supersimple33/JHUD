@@ -22,44 +22,44 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ###########################################################################
 
-def hex_to_int(str):
-    i = eval("0x" + str, {}, {})
-    return i
+# def hex_to_int(str): # newer calls implemented in all methods, should never be called anymore
+#     i = eval("0x" + str, {}, {})
+#     return i
 
 def maf(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     return code * 0.00132276
 
 def throttle_pos(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     return code# * 100.0 / 255.0
 
 def intake_m_pres(code): # in kPa
-    code = hex_to_int(code)
+    code = int(code, 16)
     return code / 0.14504
   
 def rpm(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     return code / 4
 
 def speed(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     return code #/ 1.609
 
 def percent_scale(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     return code #* 100.0 / 255.0
 
 def timing_advance(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     return (code - 128) / 2.0
 
 def sec_to_min(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     return code / 60
 
 def temp(code):
-    code = hex_to_int(code)
+    code = int(code, 16)
     c = code - 40 
     return 32 + (9 * c / 5) 
 
@@ -68,13 +68,12 @@ def cpass(code):
     return code
 
 def fuel_trim_percent(code):
-    code = hex_to_int(code)
-    #return (code - 128.0) * 100.0 / 128
+    code = int(code, 16)
     return (code - 128) * 100 / 128
 
 def dtc_decrypt(code):
     #first byte is byte after PID and without spaces
-    num = hex_to_int(code[:2]) #A byte
+    num = int(code[:2], 16) #A byte
     res = []
 
     if num & 0x80: # is mil light on
@@ -93,8 +92,8 @@ def dtc_decrypt(code):
     for i in range(0,3):
         res.append(((numB>>i)&0x01)+((numB>>(3+i))&0x02))
     
-    numC = hex_to_int(code[4:6]) #C byte
-    numD = hex_to_int(code[6:8]) #D byte
+    numC = int(code[4:6], 16) #C byte
+    numD = int(code[6:8], 16) #D byte
        
     for i in range(0,7):
         res.append(((numC>>i)&0x01)+(((numD>>i)&0x01)<<1))
@@ -104,7 +103,7 @@ def dtc_decrypt(code):
     #return res
     return "#"
 
-def hex_to_bitstring(str):
+def hex_to_bitstring(str): # shouldnt be used anymore, more pythonic ways
     bitstring = ""
     for i in str:
         # silly type safety, we don't want to eval random stuff
