@@ -159,20 +159,19 @@ acceleration = 0
 while 1:
     time_count += 1
     temperature = getTMP()
-    # speed = getSpeed()
-    #speed_kph = int(speed * 1.609344)
-    # rpm = getRPM()
+    speed = getSpeed()
+    rpm = getRPM()
     coolant = getCoolantTemp()
-    #intake = getIntakeTemp()
-    #load = getLoad()
-    #throttle = getThrottle()
-    speed = 55 # temp
-    speed_kph = 69
-    rpm = 879 # temp
+    intake = getIntakeTemp()
+    load = getLoad()
+    throttle = getThrottle()
+
+    # speed = 55 # temp
+    # rpm = 879 # temp
     # coolant = 170
-    intake = 110
-    load = 44
-    throttle = 78
+    # intake = 110
+    # load = 44
+    # throttle = 78
     #Handle value error due to incorrect math domain
     try:
         heading = int(calcHeading()) - 20
@@ -210,6 +209,9 @@ while 1:
     print("speed is " + str(speed))
     print("RPM is " + str(rpm))
     print("coolant is " + str(coolant))
+    print("intake is " + str(intake))
+    print("load is " + str(load))
+    print("throttle is " + str(throttle))
 
     screen.fill(black)
     screen.blit(quit_text, q_text_pos)
