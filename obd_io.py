@@ -174,39 +174,34 @@ class OBDPort:
         # Code will be the string returned from the device.
         # It should look something like this:
         # '41 11 0 0\r\r'
-         
+
+        # print(code, "begin", type(code))
+
         # 9 seems to be the length of the shortest valid response
-        print(code, "begin")
         if len(code) < 7:
             #raise Exception("BogusCode")
             print("boguscode?"+code)
-        
-        # codes = code.split("7E") #NOOT SAFE
+
+        #cables can behave differently 
+        if code[:7] == "NO DATA": # there is no such sensor
+            return "NO DATA"
+
         nc = code[3:]
-        # nc = nc[:-1]
-        print(nc)
+        # print(nc)
         sigHex = int(nc[:2])*2 - 4 # do not need pid or mode
         nc = nc[2:]
-        print(nc, 'u', sigHex)
+        # print(nc, 'u', sigHex)
         nc = nc[4:]
-        print(nc)
+        # print(nc)
+        nc = nc[:sigHex]
+        # print(nc)
 
-        # get the first thing returned, echo should be off
-        code = code.split("\r")
-        code = code[0]
-         
-        #remove whitespace
-        code = code.split()
-        code = "".join(code)
-         
-        #cables can behave differently 
-        if code[:6] == "NODATA": # there is no such sensor
-            return "NODATA"
-             
-        # first 4 characters are code from ELM
-        code = code[4:]
-        print(code, "end")
-        return code
+        # # get the first thing returned, echo should be off
+        # code = code.split("\r")
+        # code = code[0]
+
+        # print(nc, "end")
+        return nc
     
     def get_result(self): #b'AT SH ' + b'7E8' + b' '
         """Internal use only: not a public interface"""
@@ -248,7 +243,7 @@ class OBDPort:
         print(data)
         if data:
             data = self.interpret_result(data)
-            if data != "NODATA":
+            if data != "NO DATA":
                 data = sensor.value(data)
         else:
             return "NORESPONSE"
