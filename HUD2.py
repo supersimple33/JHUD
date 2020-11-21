@@ -249,8 +249,6 @@ while 1:
     pygame.draw.line(screen, green, (width / 7, (height / 7) - 2), (0, (height / 7) - 2))
     pygame.draw.line(screen, green, (width / 7, (6 * height / 7) + 2), (0, (6 * height / 7) + 2))
 
-    speed = 58
-
     offsetS = (speed % 10) / 10.0
     print("Offset: " + str(offsetS))
 
@@ -301,8 +299,6 @@ while 1:
     pygame.draw.line(screen, green, (6 * width / 7, (height / 7) - 2), (6 * width / 7, (6 * height / 7) + 2))
     pygame.draw.line(screen, green, (6 * width / 7, (height / 7) - 2), (width, (height / 7) - 2))
     pygame.draw.line(screen, green, (6 * width / 7, (6 * height / 7) + 2), (width, (6 * height / 7) + 2))
-
-    rpm = 6500
 
     rpm = int(rpm / 10)
     offsetS = (rpm % 10) / 10.0
