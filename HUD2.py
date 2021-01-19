@@ -254,24 +254,24 @@ while 1:
     speedTrueRect.centery = height / 2
     screen.blit(speedTrueText, speedTrueRect)
 
-    if display_F:
-        temperature = int(temperature * 9.0/5.0 + 32)
-        temp_text = font2.render(str(int(temperature))+'\xb0F', 1, blue)  
-    else:
-        temp_text = font2.render(str(int(temperature))+'\xb0C', 1, blue)   
-    screen.blit(temp_text, t_text_pos) 
+    # if display_F:
+    #     temperature = int(temperature * 9.0/5.0 + 32)
+    #     temp_text = font2.render(str(int(temperature))+'\xb0F', 1, blue)  
+    # else:
+    #     temp_text = font2.render(str(int(temperature))+'\xb0C', 1, blue)   
+    # screen.blit(temp_text, t_text_pos) 
 
-    if abs(acceleration) < 1:
-        accel_text = font3.render('~0m/s\xb2', 1, blue)
-    else:
-        accel_text = font3.render('%.2fm/s\xb2'%acceleration, 1, blue)
-    screen.blit(accel_text, a_text_pos)
+    # if abs(acceleration) < 1:
+    #     accel_text = font3.render('~0m/s\xb2', 1, blue)
+    # else:
+    #     accel_text = font3.render('%.2fm/s\xb2'%acceleration, 1, blue)
+    # screen.blit(accel_text, a_text_pos)
 
-    if display_kph:
-        velocity_text = font3.render(str(speed_kph)+' km/h', 1, blue)
-    else:
-        velocity_text = font3.render(str(speed)+' mph', 1, blue)
-    screen.blit(velocity_text, v_text_pos)
+    # if display_kph:
+    #     velocity_text = font3.render(str(speed_kph)+' km/h', 1, blue)
+    # else:
+    #     velocity_text = font3.render(str(speed)+' mph', 1, blue)
+    # screen.blit(velocity_text, v_text_pos)
 
     if heading < 22.5 or heading > 337.5:
         dir_text = font2.render("N", 1, red)
@@ -294,27 +294,27 @@ while 1:
     rpm_text = font3.render(str(rpm)+' rpm', 1, blue)
     screen.blit(rpm_text, r_text_pos)
 
-    screen.blit(coolant_text, cool_text_pos)
-    screen.blit(intake_text, intake_text_pos)
-    screen.blit(ambient_text, ambient_text_pos)
-    screen.blit(load_text, load_text_pos)
-    screen.blit(throttle_text, throttle_text_pos)
-    screen.blit(acceleration_text, acceleration_text_pos)
-    screen.blit(speed_text, speed_text_pos)
-    screen.blit(rotation_text, rotation_text_pos)
-    screen.blit(direction_text, direction_text_pos)
+    # screen.blit(coolant_text, cool_text_pos)
+    # screen.blit(intake_text, intake_text_pos)
+    # screen.blit(ambient_text, ambient_text_pos)
+    # screen.blit(load_text, load_text_pos)
+    # screen.blit(throttle_text, throttle_text_pos)
+    # screen.blit(acceleration_text, acceleration_text_pos)
+    # screen.blit(speed_text, speed_text_pos)
+    # screen.blit(rotation_text, rotation_text_pos)
+    # screen.blit(direction_text, direction_text_pos)
 
-    ctemp_text = font2.render(str(coolant)+'\xb0F', 1, blue)
-    screen.blit(ctemp_text, ctemp_pos)
+    # ctemp_text = font2.render(str(coolant)+'\xb0F', 1, blue)
+    # screen.blit(ctemp_text, ctemp_pos)
 
-    itemp_text = font2.render(str(intake)+'\xb0F', 1, blue)
-    screen.blit(itemp_text, itemp_pos)
+    # itemp_text = font2.render(str(intake)+'\xb0F', 1, blue)
+    # screen.blit(itemp_text, itemp_pos)
 
-    lvalue_text = font2.render(str(load)+'%', 1, blue)
-    screen.blit(lvalue_text, lvalue_text_pos)
+    # lvalue_text = font2.render(str(load)+'%', 1, blue)
+    # screen.blit(lvalue_text, lvalue_text_pos)
 
-    tvalue_text = font2.render(str(throttle)+'%', 1, blue)
-    screen.blit(tvalue_text, tvalue_text_pos)
+    # tvalue_text = font2.render(str(throttle)+'%', 1, blue)
+    # screen.blit(tvalue_text, tvalue_text_pos)
     
     pygame.display.flip()
     time.sleep(0.1)
