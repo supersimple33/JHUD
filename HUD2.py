@@ -27,8 +27,9 @@ red = 255, 71, 71
 pygame.init()
 pygame.mouse.set_visible(True) # no touch screen yet
 
-size = width, height = 320, 240
-screen = pygame.display.set_mode(size)
+# size = width, height = 320, 240
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+width, height = screen.get_size()
 
 font = pygame.font.Font(None, 20)
 font2 = pygame.font.Font(None, 30)
