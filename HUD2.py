@@ -273,26 +273,26 @@ while 1:
     #     velocity_text = font3.render(str(speed)+' mph', 1, blue)
     # screen.blit(velocity_text, v_text_pos)
 
-    if heading < 22.5 or heading > 337.5:
-        dir_text = font2.render("N", 1, red)
-    elif heading > 22.5 and heading < 67.5:
-        dir_text = font2.render("NE", 1, red)
-    elif heading > 67.5 and heading < 112.5:
-        dir_text = font2.render("E", 1, red)
-    elif heading > 112.5 and heading < 157.5:
-        dir_text = font2.render("SE", 1, red)
-    elif heading > 157.5 and heading < 202.5:
-        dir_text = font2.render("S", 1, red)
-    elif heading > 202.5 and heading < 247.5:
-        dir_text = font2.render("SW", 1, red)
-    elif heading > 247.5 and heading < 292.5:
-        dir_text = font2.render("W", 1, red)
-    else:
-        dir_text = font2.render("NW", 1, red)
-    screen.blit(dir_text, dir_text_pos)
+    # if heading < 22.5 or heading > 337.5:
+    #     dir_text = font2.render("N", 1, red)
+    # elif heading > 22.5 and heading < 67.5:
+    #     dir_text = font2.render("NE", 1, red)
+    # elif heading > 67.5 and heading < 112.5:
+    #     dir_text = font2.render("E", 1, red)
+    # elif heading > 112.5 and heading < 157.5:
+    #     dir_text = font2.render("SE", 1, red)
+    # elif heading > 157.5 and heading < 202.5:
+    #     dir_text = font2.render("S", 1, red)
+    # elif heading > 202.5 and heading < 247.5:
+    #     dir_text = font2.render("SW", 1, red)
+    # elif heading > 247.5 and heading < 292.5:
+    #     dir_text = font2.render("W", 1, red)
+    # else:
+    #     dir_text = font2.render("NW", 1, red)
+    # screen.blit(dir_text, dir_text_pos)
 
-    rpm_text = font3.render(str(rpm)+' rpm', 1, blue)
-    screen.blit(rpm_text, r_text_pos)
+    # rpm_text = font3.render(str(rpm)+' rpm', 1, blue)
+    # screen.blit(rpm_text, r_text_pos)
 
     # screen.blit(coolant_text, cool_text_pos)
     # screen.blit(intake_text, intake_text_pos)
