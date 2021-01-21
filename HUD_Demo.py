@@ -15,14 +15,13 @@ red = 255, 71, 71
 pygame.init()
 pygame.mouse.set_visible(True) # no touch screen yet
 
-# size = width, height = 320, 240
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 width, height = screen.get_size()
 
-font = pygame.font.Font(None, 20)
-font2 = pygame.font.Font(None, 30)
-font3 = pygame.font.Font(None, 27)
-fontSmall = pygame.font.Font(None, 18)
+font = pygame.font.Font(None, 40)
+font2 = pygame.font.Font(None, 60)
+font3 = pygame.font.Font(None, 54)
+fontSmall = pygame.font.Font(None, 36)
 
 quit_text = font.render("QUIT", 1, (255, 250, 255))   #set up texts as buttons
 q_text_pos = quit_text.get_rect()
