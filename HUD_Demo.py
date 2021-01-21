@@ -1,22 +1,10 @@
-#HUD2.py
-#This program will compile all the IMU and OBDII readings
-#and display them onto the TFT screen.
-#Created by XiaoXing Zhao and William Voge
-#Edited 5/16/2016
+#HUD_Demo.py
+#Python file for debugging and testing code related to the UI without having to use raspberry pi
 
 import pygame
 import sys
 import os
 import time
-from rpiIMU2 import *
-from temp_read2 import *
-from pynog import *
-
-# MARK: comment in when adding touch screen here and line 27
-# os.environ['SDL_VIDEODRIVER'] = 'fbcon'   #set up os environment to display to TFT
-# os.environ['SDL_FBDEV'] = '/dev/fb1'
-# os.environ['SDL_MOUSEDEV'] = '/dev/input/touchscreen' #set up touchscreen as mouse input
-# os.environ['SDL_MOUSEDRV'] = 'TSLIB'
 
 black = 0, 0, 0
 white = 255, 255, 255
@@ -25,8 +13,9 @@ blue = 84, 179, 247
 red = 255, 71, 71
 
 pygame.init()
-pygame.mouse.set_visible(True) # could set his back to false
+pygame.mouse.set_visible(True) # no touch screen yet
 
+# size = width, height = 320, 240
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 width, height = screen.get_size()
 
