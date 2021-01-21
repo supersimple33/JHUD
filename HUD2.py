@@ -85,7 +85,7 @@ while 1:
         if time_count % 2: 
             acceleration = calcAcceleration()
     except ValueError:
-        pass
+        heading = 1000
 
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -125,7 +125,6 @@ while 1:
     # MARK: New Compass
     pygame.draw.line(screen, green, (width / 4, height / 2), (3 * width / 4, height / 2))
 
-    # heading = 40 # used for debuging
     offset = (10 - (heading % 10)) / 10.0
     greenBarArray = [-1.5, -1.0, -0.5, 0.0, 0.5]
     if offset >= 0.8:
